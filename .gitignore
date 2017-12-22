@@ -5,3 +5,4 @@ env/
 .ropeproject/
 # compiled bytecode
 __pycache__/
+*.pyc
