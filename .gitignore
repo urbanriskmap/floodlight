@@ -1,1 +1,7 @@
 .DS_Store
+# virtualenv
+env/
+# rope (used by atom python ide)
+.ropeproject/
+# compiled bytecode
+__pycache__/
