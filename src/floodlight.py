@@ -65,7 +65,7 @@ def system_flood(num_reports):
         pixels[i] = BLUE
     return (pixels)
 
-def set_status():
+def set_status(last_count):
         # Get current reports from server
         client.put_pixels(system_error())
         latest_count = get_report_count(COGNICITY_ENDPOINT)
@@ -80,12 +80,12 @@ def set_status():
             else:
                 client.put_pixels(system_flood(latest_count))
 
-            last_count = latest_count
+            return (latest_count)
         except Exception as e:
             print ("Error setting status: " + str(e))
 
-if __name__ == '__main__':    
+if __name__ == '__main__':
     # Start a loop to periodically update the lights
     while True:
-        set_status()
+        last_count = set_status(last_count)
         time.sleep(INTERVAL)
