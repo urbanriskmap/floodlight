@@ -25,7 +25,7 @@ client = opc.Client('localhost:7890')
 last_count = 0
 
 # Setup the lights
-pixels = [ BLUE ] * NUM_LED
+pixels = [ (0,0,0) ] * NUM_LED
 
 # Turn off the lights
 client.put_pixels(pixels)
