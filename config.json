@@ -1,0 +1,15 @@
+{
+  "fadecandy": {
+    "server": "localhost:7890",
+    "led_strip_length": 48
+  },
+  "cognicity": {
+    "reports_endpoint": "https://data-dev.petabencana.id/reports?geoformat=geojson",
+    "poll_interval": 60
+  },
+  "colors":{
+    "red": [240, 80, 34],
+    "green": [0, 255, 0],
+    "blue": [49, 170, 222]
+  }
+}
