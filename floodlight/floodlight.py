@@ -21,7 +21,8 @@ class FloodLight:
         # Check fadecandy connection
         connection = self.client.can_connect()
         if (connection is False):
-            raise Exception('Could not connect to Fadecandy server at %s' % self.config['fadecandy']['server'])
+            raise Exception('Could not connect to Fadecandy server at %s' %
+                            self.config['fadecandy']['server'])
 
     def _get_report_count(self):
         """Get the number of flood reports in the past hour"""
@@ -36,7 +37,7 @@ class FloodLight:
         return (count)
 
     def _send_sequence(self, sequence):
-        """Accepts an array of light patterns and timings and sends to fadecandy server"""
+        """Accepts array of patterns and timings, sends to fadecandy server"""
         for item in sequence:
             print(item)
             self.client.put_pixels(item['pattern'])
@@ -44,12 +45,12 @@ class FloodLight:
                 time.sleep(item['timing'])
 
     def start(self):
-        """Polls CogniCity reports endpoint and sends updated lighting sequences to fadecandy"""
+        """Polls CogniCity endpoint and sends sequences to fadecandy"""
         # Store the last count
         last_count = 0
 
         # Reset the lights at first run
-        pixels = [ (0,0,0) ] * self.config['fadecandy']['led_strip_length']
+        pixels = [(0, 0, 0)] * self.config['fadecandy']['led_strip_length']
         self.client.put_pixels(pixels)
 
         # Main loop
@@ -61,5 +62,6 @@ class FloodLight:
 
             # update the count an add a print a message before the next update
             last_count = new_count
-            print('Next update in %s seconds...' % self.config['cognicity']['poll_interval'])
+            print('Next update in %s seconds...' %
+                  self.config['cognicity']['poll_interval'])
             time.sleep(self.config['cognicity']['poll_interval'])
