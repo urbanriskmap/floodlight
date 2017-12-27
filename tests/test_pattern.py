@@ -5,28 +5,33 @@ import json
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../floodlight')))
 
-import pattern
+import _pattern
 config = json.load(open('config.json'))
 
-pt = pattern.Pattern(config)
+pt = _pattern.Pattern(config)
 
-class TestPatterns(unittest.TestCase, config):
+class TestPattern(unittest.TestCase):
 
     def test_error(self):
-        pixels = [(0,0,0)] * config
-        pixels[0] =  RED
-        self.assertEqual(floodlight.system_error(), pixels)
+        pixels = [(0,0,0)] * config['fadecandy']['led_strip_length']
+        pixels[0] =  config['colors']['red']
+        self.assertEqual(pt.error(), pixels)
 
     def test_system_online(self):
-        pixels = [(0,0,0)] * NUM_LED
-        pixels[0] =  GREEN
-        self.assertEqual(floodlight.system_online(), pixels)
+        pixels = [(0,0,0)] * config['fadecandy']['led_strip_length']
+        pixels[0] =  config['colors']['green']
+        self.assertEqual(pt.online(), pixels)
 
     def test_system_new_report(self):
-        pixels = [BLUE] * NUM_LED
-        self.assertEqual(floodlight.system_new_report(), pixels)
+        pixels = [config['colors']['blue']] * config['fadecandy']['led_strip_length']
+
+        self.assertEqual(pt.new_report(), pixels)
 
     def test_system_flood(self):
-        pixels = [(0,0,0)] * NUM_LED
-        pixels[0] = BLUE
-        self.assertEqual(floodlight.system_flood(1), pixels)
+        pixels = [(0,0,0)] * config['fadecandy']['led_strip_length']
+        pixels[0] = config['colors']['blue']
+        self.assertEqual(pt.flood(1), pixels)
+
+
+if __name__ == '__main__':
+    unittest.main()

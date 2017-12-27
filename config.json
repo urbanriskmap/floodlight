@@ -1,6 +1,7 @@
 {
   "fadecandy": {
     "server": "localhost:7890",
+    "long_connection": true,
     "led_strip_length": 48
   },
   "cognicity": {

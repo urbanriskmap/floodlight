@@ -16,12 +16,12 @@ class FloodLight:
         """Accepts a configuration object returns a FloodLight object"""
         self.config = config
         self.sequence = _sequence.Sequence(self.config)
-        self.client = _opc.Client(self.config['fadecandy']['server'])
+        self.client = _opc.Client(self.config['fadecandy']['server'], self.config['fadecandy']['long_connection'])
 
         # Check fadecandy connection
         connection = self.client.can_connect()
         if (connection is False):
-            raise Exception('Could not connect to Fadecandy server at %s' %
+            raise RuntimeError('Could not connect to Fadecandy server at %s' %
                             self.config['fadecandy']['server'])
 
     def _get_report_count(self):

@@ -16,7 +16,7 @@ class Pattern:
 
     def online(self):
         """Set the first LED to green"""
-        pixels = [(0, 0, 0)} * self.config['fadecandy']['led_strip_length']
+        pixels = [(0, 0, 0)] * self.config['fadecandy']['led_strip_length']
         pixels[0] = self.config['colors']['green']
         return (pixels)
 
@@ -27,7 +27,7 @@ class Pattern:
 
     def flood(self, num_reports):
         """Set LEDs to number of reports"""
-        pixels = [(0, 0, 0)} * self.config['fadecandy']['led_strip_length']
+        pixels = [(0, 0, 0)] * self.config['fadecandy']['led_strip_length']
         for i in range(0,  num_reports):
             pixels[i] = self.config['colors']['blue']
         return (pixels)

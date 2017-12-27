@@ -18,7 +18,6 @@ import json
 import floodlight
 
 # TODO
-# - tests
 # - rainfall light style for new flood report
 
 # Load config
