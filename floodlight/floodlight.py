@@ -39,7 +39,6 @@ class FloodLight:
     def _send_sequence(self, sequence):
         """Accepts array of patterns and timings, sends to fadecandy server"""
         for item in sequence:
-            print(item)
             self.client.put_pixels(item['pattern'])
             if item['timing'] > 0:
                 time.sleep(item['timing'])

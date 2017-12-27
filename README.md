@@ -52,6 +52,6 @@ Unit tests are written using Python unittest and can be run by doing:
 ```sh
 python -W ignore -m unittest discover tests
 ```
-The `-W` flag is used to ignore warning messages that come from the socket library used by fadecandy `_opc.py`
+The `-W` flag is used to ignore warning messages that come from the socket library used by fadecandy `_opc.py`.
 
 ### License
