@@ -32,15 +32,20 @@ class TestFloodlight(unittest.TestCase):
     def test_init(self, mock_can_connect):
         """Can initialize instance of FloodLight class"""
 
+        # Mock the OPC can_connect function
         mock_can_connect.return_value = True
+        # Check it is the right object
         self.assertIsInstance(floodlight.FloodLight(config), floodlight.FloodLight)
 
     @patch('_opc.Client.can_connect')
     def test_get_report_count_error(self, mock_can_connect):
         """Can catch errors with CogniCity endpoint"""
 
+        # Mock the OPC can_connect function
         mock_can_connect.return_value = True
+        # Set the config endpoint to junk
         config['cognicity']['reports_endpoint'] = 'http://localhost'
+        # Get the error count
         count = floodlight.FloodLight(config)._get_report_count()
         self.assertEqual(count, -1)
 
@@ -50,14 +55,34 @@ class TestFloodlight(unittest.TestCase):
     def test_get_report_count(self, mock_can_connect, mock_requests_get):
         """Returns count of GeoJSON object"""
 
+        # Mock the OPC can_connect function
+        mock_can_connect.return_value = True
         # Mock the requests object
         mock_requests_get.return_value = MagicMock(status_code=200, json=lambda : json.loads(json.dumps({'result':{'features':[0,1,2]}})))
-        # Set the config endpoint to junk
-        config['cognicity']['reports_endpoint'] = 'http://localhost'
         # Initialize the class
         count = floodlight.FloodLight(config)._get_report_count()
         # Test
         self.assertEqual(count, 3)
+
+    @patch('floodlight.time.sleep', return_value=None)
+    @patch('_opc.Client.put_pixels', return_value=None)
+    @patch('_opc.Client.can_connect')
+    def test_send_sequence(self, mock_can_connect, mock_put_pixels, mock_time_sleep):
+        """Test send sequence method"""
+
+        # Mock the OPC can_connect function
+        mock_can_connect.return_value = True
+
+        # Execute the send sequence method
+        floodlight.FloodLight(config)._send_sequence([{'pattern':[(1,2,3)],'timing':10}])
+
+        # Test that put pixels called with expected value
+        mock_put_pixels.assert_called_with([(1,2,3)])
+
+        # Check that sleep value called as expected
+        mock_time_sleep.assert_called_with(10)
+
+
 
 """Sample test
 def test_split(self):

@@ -7,3 +7,5 @@ install:
 script:
   pycodestyle floodlight/floodlight.py floodlight/_pattern.py floodlight/_sequence.py
   python -m unittest discover tests
+after_success:
+  coverage run --source floodlight/ -m unittest discover tests
