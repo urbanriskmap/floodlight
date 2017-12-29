@@ -6,4 +6,4 @@ install:
   - pip install pycodestyle
 script:
   - pycodestyle floodlight/floodlight.py floodlight/_pattern.py floodlight/_sequence.py floodlight/__main__.py
-  coverage run --source floodlight/ -m unittest discover tests
+  - coverage run --source floodlight/ -m unittest discover tests
