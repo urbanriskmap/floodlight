@@ -22,7 +22,8 @@ class Pattern:
 
     def new_report(self):
         """Set all LEDs to blue for new report alert"""
-        pixels = [(self.config['colors']['blue'])] * self.config['fadecandy']['led_strip_length']
+        pixels = [(self.config['colors']['blue'])] *
+        self.config['fadecandy']['led_strip_length']
         return (pixels)
 
     def flood(self, num_reports):

@@ -5,7 +5,7 @@ install:
   - pip install -r requirements.txt
   - pip install pycodestyle
 script:
-  pycodestyle floodlight/floodlight.py floodlight/_pattern.py floodlight/_sequence.py
-  python -m unittest discover tests
+  - pycodestyle floodlight/floodlight.py floodlight/_pattern.py floodlight/_sequence.py floodlight/__main__.py
+  - python -m unittest discover tests
 after_success:
   coverage run --source floodlight/ -m unittest discover tests

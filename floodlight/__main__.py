@@ -19,11 +19,17 @@ import floodlight
 
 # TODO
 # - rainfall light style for new flood report
+# - logfile
+
+
 def main():
+    """Run floodlight"""
+
     config = _config.load_config('config.json')
     # Create floodlight instance
     fl = floodlight.FloodLight(config)
     # Start process
     fl.start()
+
 
 main()
