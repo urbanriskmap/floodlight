@@ -14,14 +14,13 @@ __email__ = "tomash@mit.edu"
 __status__ = "Development"
 __url__ = "https://github.com/urbanriskmap/floodlight"
 
-import json
+import _config
 import floodlight
 
 # TODO
 # - rainfall light style for new flood report
 
-# Load config
-config = json.load(open('config.json'))
+config = _config.load_config('config.json')
 # Create floodlight instance
 fl = floodlight.FloodLight(config)
 # Start process

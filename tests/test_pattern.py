@@ -5,9 +5,10 @@ import json
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../floodlight')))
 
+import _config
 import _pattern
-config = json.load(open('config.json'))
 
+config = _config.load_config('config.json')
 pt = _pattern.Pattern(config)
 
 class TestPattern(unittest.TestCase):

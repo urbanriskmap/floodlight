@@ -29,7 +29,7 @@ class Sequence():
         """Raindrop animation method"""
         # Get raindrop from pattern
         sequence = []
-        sequence.append({'pattern': self.pattern.new_report, 'timing': 2})
+        sequence.append({'pattern': self.pattern.new_report(), 'timing': 2})
         sequence.append({'pattern': self.pattern.flood(count), 'timing': 0})
         return sequence
 

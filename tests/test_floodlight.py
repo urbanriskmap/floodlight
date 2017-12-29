@@ -13,8 +13,9 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../f
     # Check main loop
 
 import floodlight
+import _config
 
-config = json.load(open('config.json'))
+config = _config.load_config('config.json')
 # Use short connection for tests
 config['fadecandy']['long_connection'] = False
 
@@ -82,7 +83,35 @@ class TestFloodlight(unittest.TestCase):
         # Check that sleep value called as expected
         mock_time_sleep.assert_called_with(10)
 
+    @patch('floodlight.time.sleep', return_value=None, side_effect=InterruptedError)
+    @patch('_opc.Client.put_pixels', return_value=None)
+    @patch('_opc.Client.can_connect')
+    @patch('floodlight.FloodLight._send_sequence', return_value=None)
+    @patch('floodlight.FloodLight._get_report_count')
+    def test_start(self, mock_get_report_count, mock_send_sequence, mock_can_connect, mock_put_pixels, mock_time_sleep):
+        """Test send sequence method"""
 
+        mock_get_report_count.return_value = 1
+
+        # Mock the OPC can_connect function
+        mock_can_connect.return_value = True
+
+        # Execute the send sequence method
+        try:
+            floodlight.FloodLight(config).start()
+        except InterruptedError:
+            print('yes')
+
+        pixels_0 = tuple(config['colors']['blue']) * config['fadecandy']['led_strip_length']
+        pixels_1 = [(0,0,0)] * config['fadecandy']['led_strip_length']
+        pixels_1[0] = tuple(config['colors']['blue'])
+        sequence = [{'timing':2, 'pattern': pixels_0},{'timing':2, 'pattern': pixels_1}]
+
+        # Test that put pixels called with expected value
+        mock_send_sequence.assert_called_with([{'pattern': [(49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222), (49, 170, 222)], 'timing': 2}, {'pattern': [(49, 170, 222), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0)], 'timing': 0}])
+
+        # Check that sleep value called as expected
+        mock_time_sleep.assert_called_with(60)
 
 """Sample test
 def test_split(self):
