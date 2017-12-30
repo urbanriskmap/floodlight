@@ -38,7 +38,7 @@ class TestFloodlight(unittest.TestCase):
         # Check it is the right object
         self.assertIsInstance(floodlight.FloodLight(config), floodlight.FloodLight)
 
-    '''
+    
     @patch('_opc.Client.can_connect')
     def test_get_report_count_error(self, mock_can_connect):
         """Can catch errors with CogniCity endpoint"""
@@ -50,7 +50,7 @@ class TestFloodlight(unittest.TestCase):
         # Get the error count
         count = floodlight.FloodLight(config)._get_report_count()
         self.assertEqual(count, -1)
-    '''
+
 
 
     @patch('floodlight.requests.get')
