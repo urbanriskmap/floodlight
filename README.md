@@ -1,6 +1,7 @@
 FloodLight
 ==========
 [![Build Status](https://travis-ci.org/urbanriskmap/floodlight.svg?branch=master)](https://travis-ci.org/urbanriskmap/floodlight)
+[![Coverage Status](https://coveralls.io/repos/github/urbanriskmap/floodlight/badge.svg?branch=dev)](https://coveralls.io/github/urbanriskmap/floodlight?branch=dev)
 
 Interface to Fadecandy LED strip to display CogniCity flood reports
 
