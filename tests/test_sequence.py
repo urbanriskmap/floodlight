@@ -1,16 +1,13 @@
 import unittest
 import sys
 import os
-import json
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../floodlight')))
 
 import _config
 import _sequence
-import _pattern
 
 config = _config.load_config('config.json')
-pt = _pattern.Pattern(config)
 sq = _sequence.Sequence(config)
 
 class TestSequence(unittest.TestCase):

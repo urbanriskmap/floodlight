@@ -2,10 +2,8 @@ language: python
 python:
   - "3.6"
 install:
-  - pip install -r requirements.txt
-  - pip install pycodestyle
-  - pip install coverage
-  - pip install coveralls
+  - pip install -r requirements/common.txt
+  - pip install -r requirements/dev.txt
 script:
   - pycodestyle floodlight/floodlight.py floodlight/_pattern.py floodlight/_sequence.py floodlight/__main__.py
   - coverage run --source floodlight/ -m unittest discover tests

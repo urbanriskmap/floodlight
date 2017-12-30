@@ -3,14 +3,8 @@ from unittest.mock import patch
 from unittest.mock import MagicMock
 import sys
 import os
-import json
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../floodlight')))
 
-# Before:
-# Mock client (self.client.put_pixels)
-# Tests:
-    # Check _send_sequence waits if > timing > 0
-    # Check main loop
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../floodlight')))
 
 import floodlight
 import _config
@@ -38,7 +32,7 @@ class TestFloodlight(unittest.TestCase):
         # Check it is the right object
         self.assertIsInstance(floodlight.FloodLight(config), floodlight.FloodLight)
 
-    
+
     @patch('_opc.Client.can_connect')
     def test_get_report_count_error(self, mock_can_connect):
         """Can catch errors with CogniCity endpoint"""
