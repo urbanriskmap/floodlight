@@ -11,6 +11,7 @@ import _sequence
 
 logger = logging.getLogger(__name__)
 
+
 class FloodLight:
     """Main class for FloodLight module"""
 
@@ -67,5 +68,5 @@ class FloodLight:
             # update the count an add a print a message before the next update
             last_count = new_count
             logger.info('Next update in %s seconds...' %
-                    self.config['cognicity']['poll_interval'])
+                        self.config['cognicity']['poll_interval'])
             time.sleep(self.config['cognicity']['poll_interval'])
