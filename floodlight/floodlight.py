@@ -33,7 +33,7 @@ class FloodLight:
             if (r.status_code == 200):
                 count = (len(r.json()['result']['features']))
         except Exception as e:
-            print ("Error getting report count: " + str(e))
+            print("Error getting report count: " + str(e))
         return (count)
 
     def _send_sequence(self, sequence):
