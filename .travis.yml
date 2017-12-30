@@ -5,6 +5,10 @@ install:
   - pip install -r requirements.txt
   - pip install pycodestyle
   - pip install coverage
+  - pip install coveralls
 script:
   - pycodestyle floodlight/floodlight.py floodlight/_pattern.py floodlight/_sequence.py floodlight/__main__.py
   - coverage run --source floodlight/ -m unittest discover tests
+# after success
+after_success:
+  coveralls
