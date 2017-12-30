@@ -8,27 +8,36 @@ class Pattern:
 
         self.config = config
 
+    def one_pixel(self, id, rgb):
+        """Sets a single pixel based on array index and specified color"""
+        pixels = [(0, 0, 0)] * self.config['fadecandy']['led_strip_length']
+        pixels[id] = rgb
+        return (pixels)
+
+    def all_pixels(self, rgb):
+        """Set all LEDs to specified color"""
+        pixels = ([rgb] * self.config['fadecandy']['led_strip_length'])
+        return (pixels)
+
+    def n_pixels(self, n, rgb):
+        """Sets n LEDs to specified color, from start of array"""
+        pixels = [(0, 0, 0)] * self.config['fadecandy']['led_strip_length']
+        for i in range(0,  n):
+            pixels[i] = rgb
+        return (pixels)
+
     def error(self):
         """Set the first LED to red"""
-        pixels = [(0, 0, 0)] * self.config['fadecandy']['led_strip_length']
-        pixels[0] = self.config['colors']['red']
-        return (pixels)
+        return (self.one_pixel(0, self.config['colors']['red']))
 
     def online(self):
         """Set the first LED to green"""
-        pixels = [(0, 0, 0)] * self.config['fadecandy']['led_strip_length']
-        pixels[0] = self.config['colors']['green']
-        return (pixels)
+        return (self.one_pixel(0, self.config['colors']['green']))
 
     def new_report(self):
         """Set all LEDs to blue for new report alert"""
-        pixels = ([(self.config['colors']['blue'])] *
-                  self.config['fadecandy']['led_strip_length'])
-        return (pixels)
+        return (self.all_pixels(self.config['colors']['blue']))
 
     def flood(self, num_reports):
         """Set LEDs to number of reports"""
-        pixels = [(0, 0, 0)] * self.config['fadecandy']['led_strip_length']
-        for i in range(0,  num_reports):
-            pixels[i] = tuple(self.config['colors']['blue'])
-        return (pixels)
+        return (self.n_pixels(num_reports, self.config['colors']['blue']))
