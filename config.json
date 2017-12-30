@@ -12,5 +12,8 @@
     "red": [240, 80, 34],
     "green": [0, 255, 0],
     "blue": [49, 170, 222]
+  },
+  "logfile":{
+    "path": "floodlight.log"
   }
 }

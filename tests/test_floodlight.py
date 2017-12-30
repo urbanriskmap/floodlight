@@ -4,6 +4,7 @@ from unittest.mock import MagicMock
 import sys
 import os
 import json
+import logging
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../floodlight')))
 
@@ -11,14 +12,13 @@ import floodlight
 import _config
 
 config = _config.load_config('config.json')
+
 # Use short connection for tests
 config['fadecandy']['long_connection'] = False
 
 class TestFloodlight(unittest.TestCase):
-
     def test_init_error(self):
         """Catches error with Fadecandy connection"""
-
         try:
             floodlight.FloodLight(config)
         except Exception as e:

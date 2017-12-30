@@ -14,18 +14,25 @@ __email__ = "tomash@mit.edu"
 __status__ = "Development"
 __url__ = "https://github.com/urbanriskmap/floodlight"
 
+import logging
 import _config
 import floodlight
 
 # TODO
 # - rainfall light style for new flood report
-# - logfile
+
+LOG_FORMAT = ('%(asctime)s %(filename)s '
+              '(function: %(funcName)s line: %(lineno)s) Message: %(message)s')
 
 
 def main():
     """Run floodlight"""
-
+    # Load config
     config = _config.load_config('config.json')
+    # Create log file
+    logging.basicConfig(filename=config['logfile']['path'],
+                        level=logging.DEBUG,
+                        format=LOG_FORMAT)
     # Create floodlight instance
     fl = floodlight.FloodLight(config)
     # Start process

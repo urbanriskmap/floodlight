@@ -3,11 +3,13 @@
 # External Dependencies
 import time
 import requests
+import logging
 
 # Submodules
 import _opc
 import _sequence
 
+logger = logging.getLogger(__name__)
 
 class FloodLight:
     """Main class for FloodLight module"""
@@ -22,8 +24,10 @@ class FloodLight:
         # Check fadecandy connection
         connection = self.client.can_connect()
         if (connection is False):
-            raise RuntimeError('Could not connect to Fadecandy server at %s' %
-                               self.config['fadecandy']['server'])
+            message = ('Could not connect to Fadecandy server at %s' %
+                       self.config['fadecandy']['server'])
+            logger.error(message)
+            raise RuntimeError(message)
 
     def _get_report_count(self):
         """Get the number of flood reports in the past hour"""
@@ -33,7 +37,8 @@ class FloodLight:
             if (r.status_code == 200):
                 count = (len(r.json()['result']['features']))
         except Exception as e:
-            print("Error getting report count: " + str(e))
+            message = "Error getting report count: " + str(e)
+            logger.error(message)
         return (count)
 
     def _send_sequence(self, sequence):
@@ -61,6 +66,6 @@ class FloodLight:
 
             # update the count an add a print a message before the next update
             last_count = new_count
-            print('Next update in %s seconds...' %
-                  self.config['cognicity']['poll_interval'])
+            logger.info('Next update in %s seconds...' %
+                    self.config['cognicity']['poll_interval'])
             time.sleep(self.config['cognicity']['poll_interval'])
