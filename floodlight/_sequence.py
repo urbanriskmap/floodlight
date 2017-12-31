@@ -22,16 +22,25 @@ class Sequence():
     def flood(self, count):
         # heartbeat
         sequence = [{'pattern': self.pattern.online(), 'timing': 0.1}]
-        sequence.append({'pattern': self.pattern.flood(count), 'timing': 0})
+        sequence.append({'pattern': self.pattern.report_count(count), 'timing': 0})
         return (sequence)
 
-    def rainfall(self, count):
-        """Raindrop animation method"""
+    def new_report(self, last_count, new_count):
+        """Flash all LEDs blue to alert new incoming report"""
         # Get raindrop from pattern
         sequence = []
-        sequence.append({'pattern': self.pattern.new_report(), 'timing': 2})
-        sequence.append({'pattern': self.pattern.flood(count), 'timing': 0})
+        sequence.append({'pattern': self.pattern.all_blue(), 'timing': 2})
+        sequence.append({'pattern': self.pattern.report_count(new_count), 'timing': 0})
+        #sequence = raindrop(last_count, new_count)
+        #sequence.append({'pattern': self.pattern.one_pixel()})
         return sequence
+
+    def raindrop(self, last_count, new_count):
+        """Animate LEDs as falling raindrop"""
+        sequence = []
+        for i in range(self.config['fadecandy']['led_strip_length']-1, -1, -1):
+            sequence.append({'pattern': self.pattern.raindrop(i), 'timing': 0.3})
+        return (sequence)
 
     def build(self, last_count, new_count):
         """Accepts previous and new report counts, returns light sequence"""
@@ -40,7 +49,8 @@ class Sequence():
         if new_count == 0:
             return (self.online())
         elif new_count > last_count:
-            return (self.rainfall(new_count))
+            self.raindrop(last_count, new_count)
+            return (self.new_report(last_count, new_count))
         elif new_count > 0:
             return (self.flood(new_count))
         else:

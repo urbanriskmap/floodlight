@@ -16,7 +16,7 @@ class TestSequence(unittest.TestCase):
         """Test Sequence builder"""
 
         self.assertEqual(sq.build(0, 0), sq.online())
-        self.assertEqual(sq.build(0, 1), sq.rainfall(1))
+        self.assertEqual(sq.build(0, 1), sq.new_report(0, 1))
         self.assertEqual(sq.build(1, 1), sq.flood(1))
         self.assertEqual(sq.build(-1, -1), sq.error())
 

@@ -25,12 +25,12 @@ class TestPattern(unittest.TestCase):
     def test_system_new_report(self):
         pixels = [config['colors']['blue']] * config['fadecandy']['led_strip_length']
 
-        self.assertEqual(pt.new_report(), pixels)
+        self.assertEqual(pt.all_blue(), pixels)
 
     def test_system_flood(self):
         pixels = [(0,0,0)] * config['fadecandy']['led_strip_length']
         pixels[0] = config['colors']['blue']
-        self.assertEqual(pt.flood(1), pixels)
+        self.assertEqual(pt.report_count(1), pixels)
 
 
 if __name__ == '__main__':
