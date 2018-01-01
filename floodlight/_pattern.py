@@ -2,6 +2,7 @@
 
 from _pixel import Pixel
 
+
 class Pattern(Pixel):
     """Inherits Pixel class to create LED patterns"""
     def __init__(self, config):
