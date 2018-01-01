@@ -144,15 +144,13 @@ class Client(object):
         # build OPC message
         len_hi_byte = int(len(pixels)*3 / 256)
         len_lo_byte = (len(pixels)*3) % 256
-        header = chr(channel) + chr(0) + chr(len_hi_byte) + chr(len_lo_byte)
-        pieces = [header]
-        for r, g, b in pixels:
-            r = min(255, max(0, int(r)))
-            g = min(255, max(0, int(g)))
-            b = min(255, max(0, int(b)))
-            pieces.append(chr(r) + chr(g) + chr(b))
-        message = ''.join(pieces)
+        header = [channel, 0, len_hi_byte, len_lo_byte]
 
+        pixels = [x for rgb in pixels for x in rgb]  # flatten into 1D list of rgb values
+        clamp = lambda x: max(min(255, int(x)), 0)
+        rgbvals = [clamp(x) for x in pixels]  # floats to ints, and constrain vals
+
+        message = bytes(header + rgbvals)
         self._debug('put_pixels: sending pixels to server')
         try:
             self._socket.send(message)
