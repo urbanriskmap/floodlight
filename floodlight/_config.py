@@ -1,5 +1,6 @@
 import json
 
+
 # Load config
 def load_config(file):
     """Accepts filename and returns config object"""

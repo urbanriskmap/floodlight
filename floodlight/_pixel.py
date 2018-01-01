@@ -1,5 +1,6 @@
 """Control a Fadecany LED Strip"""
 
+
 class Pixel:
     """Manipulate individual LED states"""
     def __init__(self, led_strip_length):

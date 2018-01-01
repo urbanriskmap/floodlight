@@ -27,7 +27,8 @@ class Sequence():
         """Animate LEDs as falling raindrop"""
         sequence = []
         for i in range(self.config['fadecandy']['led_strip_length']-1, -1, -1):
-            sequence.append({'pattern': self.pattern.raindrop(i), 'timing': 0.1})
+            sequence.append({'pattern': self.pattern.raindrop(i),
+                             'timing': 0.1})
         return (sequence)
 
     def new_report(self, last_count, new_count):
@@ -35,10 +36,12 @@ class Sequence():
         # First, raindrop animation
         sequence = self.raindrop(last_count, new_count)
         # Next, show the old count
-        sequence.append({'pattern': self.pattern.report_count(last_count), 'timing':0.5})
+        sequence.append({'pattern': self.pattern.report_count(last_count),
+                         'timing': 0.5})
         # Now grow the LED count from the old value to the new one
         for i in range(last_count + 1, new_count + 1):
-            sequence.append({'pattern': self.pattern.report_count(i), 'timing':0.5})
+            sequence.append({'pattern': self.pattern.report_count(i),
+                             'timing': 0.5})
         return (sequence)
 
     def build(self, last_count, new_count):
