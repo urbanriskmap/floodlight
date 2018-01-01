@@ -89,7 +89,7 @@ class TestFloodlight(unittest.TestCase):
     def test_start(self, mock_get_report_count, mock_send_sequence, mock_can_connect, mock_put_pixels, mock_time_sleep):
         """Test send sequence method"""
 
-        mock_get_report_count.return_value = 1
+        mock_get_report_count.return_value = 2
 
         # Mock the OPC can_connect function
         mock_can_connect.return_value = True
@@ -98,19 +98,15 @@ class TestFloodlight(unittest.TestCase):
         try:
             floodlight.FloodLight(config).start()
         except InterruptedError:
-            pixels_0 = tuple(config['colors']['blue']) * config['fadecandy']['led_strip_length']
-            pixels_1 = [(0,0,0)] * config['fadecandy']['led_strip_length']
-            pixels_1[0] = tuple(config['colors']['blue'])
-            sequence = [{'timing':2, 'pattern': pixels_0},{'timing':2, 'pattern': pixels_1}]
 
-            sequence = sequence.Sequence(config).build(0, 1)
+            # Construct the expected sequence
+            sequence = _sequence.Sequence(config).build(0, 2)
 
             # Test that put pixels called with expected value
             mock_send_sequence.assert_called_with(sequence)
 
             # Check that sleep value called as expected
             mock_time_sleep.assert_called_with(60)
-
 
 if __name__ == '__main__':
     unittest.main()
