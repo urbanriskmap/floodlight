@@ -25,7 +25,8 @@ class Pattern(Pixel):
 
     def report_count(self, num_reports):
         """Set LEDs to number of reports"""
-        return (self.span(num_reports, self.config['colors']['blue']))
+        pixels = self.all((0, 0, 0))
+        return (self.span(pixels, num_reports, self.config['colors']['blue']))
 
     def raindrop(self, n):
         """Set a single LED as blue, with all others off"""

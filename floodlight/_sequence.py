@@ -35,6 +35,17 @@ class Sequence():
         #sequence.append({'pattern': self.pattern.one_pixel()})
         return sequence
 
+    def new_report_2(self, last_count, new_count):
+        """Flash LEDs representing new reports"""
+        # First, raindrop animation
+        sequence = self.raindrop(last_count, new_count)
+        # Next, show the old count
+        sequence.append(self.report_count(last_count))
+        # Now grow the LED count from the old value to the new one
+        for i in range(last_count, new_count):
+            sequence.append(self.append({'pattern': self.pattern.report_count(i), 'timing':0.5}))
+        return (sequence)
+
     def raindrop(self, last_count, new_count):
         """Animate LEDs as falling raindrop"""
         sequence = []

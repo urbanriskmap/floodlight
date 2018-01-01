@@ -4,7 +4,6 @@ class Pixel:
     """Manipulate individual LED states"""
     def __init__(self, led_strip_length):
         """Accepts configuration object, returns Pixel object"""
-
         self.led_strip_length = led_strip_length
 
     def all(self, rgb):
@@ -17,9 +16,8 @@ class Pixel:
         pixels[id] = rgb
         return (pixels)
 
-    def span(self, n, rgb):
-        """Sets n LEDs from start of array and clears all others"""
-        pixels = [(0, 0, 0)] * self.led_strip_length
+    def span(self, pixels, n, rgb):
+        """Sets n LEDs from start of array to specified color"""
         for i in range(0,  n):
             pixels[i] = rgb
         return (pixels)

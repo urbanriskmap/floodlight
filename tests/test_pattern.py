@@ -24,7 +24,6 @@ class TestPattern(unittest.TestCase):
 
     def test_system_new_report(self):
         pixels = [config['colors']['blue']] * config['fadecandy']['led_strip_length']
-
         self.assertEqual(pt.all_blue(), pixels)
 
     def test_system_flood(self):
