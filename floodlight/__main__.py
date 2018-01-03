@@ -26,6 +26,7 @@ LOG_FORMAT = ('%(asctime)s %(filename)s '
 logger = logging.getLogger(__name__)
 config_file = os.path.dirname(__file__) + '/../config.json'
 
+
 def main():
     """Run floodlight"""
     # Load config
