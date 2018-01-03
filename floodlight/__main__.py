@@ -14,6 +14,7 @@ __email__ = "tomash@mit.edu"
 __status__ = "Development"
 __url__ = "https://github.com/urbanriskmap/floodlight"
 
+import os
 import sys
 import logging
 import _config
@@ -23,12 +24,12 @@ LOG_FORMAT = ('%(asctime)s %(filename)s '
               '(function: %(funcName)s line: %(lineno)s) Message: %(message)s')
 
 logger = logging.getLogger(__name__)
-
+logfile = os.path.dirname(__file__) + '/../config.json'
 
 def main():
     """Run floodlight"""
     # Load config
-    config = _config.load_config('config.json')
+    config = _config.load_config(logfile)
     # Create log file
     logging.basicConfig(filename=config['logfile']['path'],
                         level=logging.DEBUG,
