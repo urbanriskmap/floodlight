@@ -24,12 +24,12 @@ LOG_FORMAT = ('%(asctime)s %(filename)s '
               '(function: %(funcName)s line: %(lineno)s) Message: %(message)s')
 
 logger = logging.getLogger(__name__)
-logfile = os.path.dirname(__file__) + '/../config.json'
+config_file = os.path.dirname(__file__) + '/../config.json'
 
 def main():
     """Run floodlight"""
     # Load config
-    config = _config.load_config(logfile)
+    config = _config.load_config(config_file)
     # Create log file
     logging.basicConfig(filename=config['logfile']['path'],
                         level=logging.DEBUG,
