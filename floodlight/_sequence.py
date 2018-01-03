@@ -28,7 +28,7 @@ class Sequence():
         sequence = []
         for i in range(self.config['fadecandy']['led_strip_length']-1, -1, -1):
             sequence.append({'pattern': self.pattern.raindrop(i),
-                             'timing': 0.1})
+                             'timing': 0.05})
         return (sequence)
 
     def new_report(self, last_count, new_count):
