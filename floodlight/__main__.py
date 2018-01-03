@@ -14,15 +14,15 @@ __email__ = "tomash@mit.edu"
 __status__ = "Development"
 __url__ = "https://github.com/urbanriskmap/floodlight"
 
+import sys
 import logging
 import _config
 import floodlight
 
-# TODO
-# - rainfall light style for new flood report
-
 LOG_FORMAT = ('%(asctime)s %(filename)s '
               '(function: %(funcName)s line: %(lineno)s) Message: %(message)s')
+
+logger = logging.getLogger(__name__)
 
 
 def main():
@@ -33,10 +33,15 @@ def main():
     logging.basicConfig(filename=config['logfile']['path'],
                         level=logging.DEBUG,
                         format=LOG_FORMAT)
+
     # Create floodlight instance
     fl = floodlight.FloodLight(config)
-    # Start process
-    fl.start()
+    # Start process, catching KeyboardInterrupts
+    try:
+        fl.start()
+    except KeyboardInterrupt:
+        logger.info("Exit called by user (KeyboardInterrupt), will now exit.")
+        sys.exit(0)
 
 
 main()
