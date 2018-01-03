@@ -5,7 +5,7 @@
     "led_strip_length": 48
   },
   "cognicity": {
-    "reports_endpoint": "https://data-dev.petabencana.id/reports?geoformat=geojson",
+    "reports_endpoint": "https://data.petabencana.id/reports?geoformat=geojson",
     "poll_interval": 60
   },
   "colors":{
