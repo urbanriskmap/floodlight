@@ -6,3 +6,5 @@ env/
 # compiled bytecode
 __pycache__/
 *.pyc
+.coverage
+floodlight.log

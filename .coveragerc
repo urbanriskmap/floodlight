@@ -1,0 +1,4 @@
+[run]
+omit =
+  floodlight/_opc.py
+  floodlight/__main__.py
