@@ -31,6 +31,8 @@ log_format = ('%(asctime)s %(filename)s '
 logging.basicConfig(filename=config['logfile']['path'],
                     level=config['logfile']['level'],
                     format=log_format)
+# Silence the requests module
+logging.getLogger("requests").setLevel(logging.CRITICAL)
 logger = logging.getLogger(__name__)
 
 
