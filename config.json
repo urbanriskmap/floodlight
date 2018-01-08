@@ -5,7 +5,7 @@
     "led_strip_length": 48
   },
   "cognicity": {
-    "reports_endpoint": "https://data.petabencana.id/reports?geoformat=geojson",
+    "reports_endpoint": "https://data.petabencana.id/reports?geoformat=geojson&timeperiod=43200",
     "poll_interval": 60
   },
   "colors":{
@@ -14,6 +14,7 @@
     "blue": [49, 170, 222]
   },
   "logfile":{
-    "path": "floodlight.log"
+    "path": "floodlight.log",
+    "level": "INFO"
   }
 }
