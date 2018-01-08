@@ -51,6 +51,7 @@ class FloodLight:
 
     def start(self):
         """Polls CogniCity endpoint and sends sequences to fadecandy"""
+        logger.info('Starting floodlight.')
         # Store the last count
         last_count = 0
 
@@ -67,6 +68,6 @@ class FloodLight:
 
             # update the count an add a print a message before the next update
             last_count = new_count
-            logger.info('Next update in %s seconds...' %
-                        self.config['cognicity']['poll_interval'])
+            logger.debug('Next update in %s seconds...' %
+                         self.config['cognicity']['poll_interval'])
             time.sleep(self.config['cognicity']['poll_interval'])

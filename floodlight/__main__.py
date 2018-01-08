@@ -20,22 +20,22 @@ import logging
 import _config
 import floodlight
 
-LOG_FORMAT = ('%(asctime)s %(filename)s '
-              '(function: %(funcName)s line: %(lineno)s) Message: %(message)s')
-
-logger = logging.getLogger(__name__)
+# Load config
 config_file = os.path.dirname(__file__) + '/../config.json'
+config = _config.load_config(config_file)
+
+# Create log file
+log_format = ('%(asctime)s %(filename)s '
+              '(function: %(funcName)s, line: %(lineno)s) '
+              'Message: %(message)s')
+logging.basicConfig(filename=config['logfile']['path'],
+                    level=config['logfile']['level'],
+                    format=log_format)
+logger = logging.getLogger(__name__)
 
 
 def main():
     """Run floodlight"""
-    # Load config
-    config = _config.load_config(config_file)
-    # Create log file
-    logging.basicConfig(filename=config['logfile']['path'],
-                        level=logging.DEBUG,
-                        format=LOG_FORMAT)
-
     # Create floodlight instance
     fl = floodlight.FloodLight(config)
     # Start process, catching KeyboardInterrupts
